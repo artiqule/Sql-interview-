@@ -1,6 +1,6 @@
 -- 1. Отобрать по каждому договору последнюю доступную запись в таблице				
 
-SELECT * FROM T
+SELECT TOP 1 *
 ORDER BY DEAL_NO
 DESC LIMIT 1
 
