@@ -1,4 +1,6 @@
-#dep_id	emp_id	salary	salary_sum
+#
+
+dep_id	emp_id	salary	salary_sum
 1	11	 10 000   	 10 000   
 1	12	 20 000   	 30 000   
 1	13	 30 000   	 60 000   
