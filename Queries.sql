@@ -20,8 +20,8 @@ HAVING COUNT(*) <= 3
 -- 4. Вывести список сотрудников, не имеющих назначенного руководителя, работающего в том-же отделе
 SELECT  a.*
 FROM  EMPLOYEE a
-LEFT JOIN EMPLOYEE b ON (b.id = a.chief_emp_idid AND b.dep_id = a.dep_id)
-WHERE b.id IS null
+LEFT JOIN EMPLOYEE b ON (b.emp_id = a.chief_emp_id AND b.dep_id = a.dep_id)
+WHERE b.emp_id IS null
 
 -- 5. Найти список ID отделов с максимальной суммарной зарплатой сотрудников
 WITH  dep_salary AS
