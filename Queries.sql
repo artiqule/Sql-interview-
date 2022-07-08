@@ -39,6 +39,11 @@ JOIN EMPLOYEE_Address es ON e.emp_id = es.emp_id
 WHERE  e.salary > 30000 AND es.Address LIKE '%Химки%'
 
 -- 7. Разделить сотрудников на 5 групп случайным образом
+SELECT 
+(ROW_NUMBER() OVER(ORDER BY emp_id asc)) rownumber
+, NTILE(5) OVER(ORDER BY RAND()) group_num
+, t.*
+FROM EMPLOYEE t
 
 -- 8. Вывести список сотрудников с указанием суммарного дохода с предыдущими сотрудниками в пределах своего отдела накопительным итогом, отсортированным по возрастанию по доходу сотрудника для каждого подразделения (по каждому подразделению суммирование свое).
 
