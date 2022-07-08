@@ -1,38 +1,42 @@
 -- 1. Вывести список сотрудников, получающих заработную плату большую чем у непосредственного руководителя
-SELECT * 
-FROM Employee AS employees, Employee AS chieves
-WHERE chieves.id = employees.chief_id AND employees.salary > chieves.salary;
+SELECT a.*
+FROM EMPLOYEE a, EMPLOYEE b
+WHERE b.EMP_ID = a.CHIEF_EMP_ID
+and a.salary > b.salary
 
 -- 2. Вывести список сотрудников, получающих максимальную заработную плату в своем отделе
-SELECT * 
-FROM Employee AS employees
-WHERE employees.salary = (SELECT MAX(salary) FROM Employee AS max WHERE max.department_id = employees.department_id);
+SELECT a.*
+FROM EMPLOYEE a
+WHERE a.salary = 
+( SELECT max(salary) FROM EMPLOYEE b
+ WHERE b.dep_id = a.DEP_ID )
 
 -- 3. Вывести список ID отделов, количество сотрудников в которых не превышает 3 человек
-SELECT department_id 
-FROM Employee
-GROUP BY department_id
-HAVING COUNT(*) <= 3;
+SELECT dep_id
+FROM EMPLOYEE
+GROUP BY dep_id
+HAVING COUNT(*) <= 3
 
 -- 4. Вывести список сотрудников, не имеющих назначенного руководителя, работающего в том-же отделе
-SELECT * 
-FROM Employee AS employees
-LEFT JOIN Employee AS chieves ON (employees.chief_id = chieves.Id AND employees.department_id = chieves.department_id)
-WHERE chieves.id IS NULL;
+SELECT  a.*
+FROM  EMPLOYEE a
+LEFT JOIN EMPLOYEE b ON (b.id = a.chief_emp_idid AND b.dep_id = a.dep_id)
+WHERE b.id IS null
 
 -- 5. Найти список ID отделов с максимальной суммарной зарплатой сотрудников
-WITH dep_salary AS 
-	(SELECT department_id, sum(salary) AS salary
-	FROM employee 
-	GROUP BY department_id)
-SELECT department_id
-FROM dep_salary
-WHERE dep_salary.salary = (SELECT max(salary) FROM dep_salary);
+WITH  dep_salary AS
+(SELECT  dep_id, sum(salary) AS salary
+ FROM  EMPLOYEE
+ GROUP BY dep_id)
+ SELECT dep_id
+ FROM dep_salary
+ WHERE  dep_salary.salary = (SELECT max(salary) FROM  dep_salary)
 
 -- 6. Вывести список сотрудников с доходом от 30 000 и проживающих в гор. Химки
-SELECT e.EMP_ID
-FROM Employee e JOIN Employees_address es ON e.EMP_ID = es.EMP_ID
-WHERE e.salary > 30000 AND es.address LIKE '%Химки"%'
+SELECT  e.emp_id
+FROM  EMPLOYEE e 
+JOIN EMPLOYEE_Address es ON e.emp_id = es.emp_id
+WHERE  e.salary > 30000 AND es.Address LIKE '%Химки%'
 
 -- 7. Разделить сотрудников на 5 групп случайным образом
 
